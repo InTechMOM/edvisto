@@ -1,37 +1,39 @@
-const urlProjects = 'http://127.0.0.1:3000/api/projects?course=SegundoA&emailStudents=sarasofiaramirez@example.com';
+import { serverPath } from "../../main.js";
 
- async function fetchStudentProjects() {
-  try {
+async function fetchStudentProjects() {
+	const studentEmail = localStorage.getItem('studentEmail');
+	const studentGrade = localStorage.getItem('studentGrade');
+	const urlProjects = `${serverPath}/api/projects?course=${studentGrade}&emailStudents=${studentEmail}`;
+
+	try {
     const response = await fetch(urlProjects, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    });
+      }
+		});
 
     if (!response.ok) {
       throw new Error(`Error en la solicitud: ${response.status}`);
     }
 
     const data = await response.json();
-    console.log(data);
 
     const projectsContainer = document.getElementById('studentProjects');
-    
+
     data.Projects.forEach((project) => {
-     
+
       const projectTemplate = `
-     <div class="wrapper">
+      <div class="wrapper">
             <button class="collapsible" type="button">
-                <div class="coll-title">    
+                <div class="coll-title">
                     Proyecto:${project.name}
                     <div class="info">
                         <p>Fecha de inicio:${project.startDate} </p>
                         <p>Fecha de finalización:${project.finishDate} </p>
                     </div>
                 </div>
-                <img src="../assets/img/collapsible-arrow.svg" alt="flecha hacia abajo" id="arrow-down">
+                <img src="../../assets/images/collapsible-arrow.svg" alt="flecha hacia abajo" id="arrow-down">
             </button>
             <div class="content">
                 <p class="drop-text">¡Sigue adelante con tu proyecto!</p>
@@ -39,13 +41,13 @@ const urlProjects = 'http://127.0.0.1:3000/api/projects?course=SegundoA&emailStu
                 <p class="text">Haz click en el botón para seguir trabajando </p>
                 <a href="/busqueda.html">
                     <button type="button" aria-label="boton ir" class="go-btn">¡Vamos!<img
-                            src="./assets/img/arrow-right.svg" alt="flecha hacia la derecha"></button>
+                            src="../../assets/images/arrow-right.svg" alt="flecha hacia la derecha"></button>
                 </a>
             </div>
         </div>
       `;
-    
-     
+
+
       projectsContainer.innerHTML += projectTemplate;
     });
 
@@ -66,52 +68,10 @@ const urlProjects = 'http://127.0.0.1:3000/api/projects?course=SegundoA&emailStu
   } catch (error) {
     console.error('Error al cargar los proyectos', error);
   }
-} 
+}
 
 
 fetchStudentProjects()
-
-
-const apiKey = 'AIzaSyDJ1MSBS6OPFZT-wqd5n9tAXHOD0iFT6qU';
-const maxResults = 9;
-const searchInput = document.getElementById('search_input');
-
-const randomSearchTerm = 'los planetas cuarto grado shorts';
-const maxVideoDuration = 'short';
-
-const videoGrid = document.querySelector('.video-grid');
-
-fetch(`https://www.googleapis.com/youtube/v3/search?key=${apiKey}&q=${randomSearchTerm}&maxResults=${maxResults}&type=video`)
-  .then(response => response.json())
-  .then(data => {
-    const videoItems = data.items || [];
-
-    videoItems.forEach(item => {
-      const videoId = item.id.videoId;
-      const snippet = item.snippet || {};
-      const thumbnailUrl = snippet.thumbnails?.high?.url || '';
-
-      const videoContainer = document.createElement('div');
-      videoContainer.className = 'video-container';
-
-      const thumbnailImage = document.createElement('img');
-      thumbnailImage.src = thumbnailUrl;
-      thumbnailImage.alt = snippet.title || '';
-
-      videoContainer.appendChild(thumbnailImage);
-
-      videoGrid.appendChild(videoContainer);
-
-      createYouTubePlayer(videoContainer, videoId);
-    });
-  })
-  .catch(error => {
-    console.error('Error fetching data from YouTube API:', error);
-    if (error.message.includes('403 Forbidden')) {
-      alert('has alcanzado la cuota máxima de videos or día.');
-    }
-  });
-
 
 function createYouTubePlayer(container, videoId) {
 
