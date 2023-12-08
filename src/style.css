@@ -1,0 +1,19 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Urbanist', sans-serif;
+
+}
+
+:root {
+	--violet: #6100FF;
+	--tech: #0B0033;
+	--orange: #FF7000;
+	--caribe70: hsla(183, 75%, 44%, 0.7);
+	--white: #FFFFFF;
+	--white80: hsla(0, 0%, 100%, 0.8);
+	--caribe: hsla(183, 75%, 44%, 1);
+	--caribe30: hsla(183, 75%, 44%, 0.3);
+	--aqua30: #1CBBC44D;
+	--caribe35: #1CBBC459;
+}
