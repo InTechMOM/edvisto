@@ -1,17 +1,17 @@
 import { serverPath } from "../../main.js";
 
 async function fetchStudentProjects() {
-	const studentEmail = localStorage.getItem('studentEmail');
-	const studentGrade = localStorage.getItem('studentGrade');
-	const urlProjects = `${serverPath}/api/projects?course=${studentGrade}&emailStudents=${studentEmail}`;
+  const studentEmail = localStorage.getItem('studentEmail');
+  const studentGrade = localStorage.getItem('studentGrade');
+  const urlProjects = `${serverPath}/api/projects?course=${studentGrade}&emailStudents=${studentEmail}`;
 
-	try {
+  try {
     const response = await fetch(urlProjects, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       }
-		});
+    });
 
     if (!response.ok) {
       throw new Error(`Error en la solicitud: ${response.status}`);
@@ -71,7 +71,31 @@ async function fetchStudentProjects() {
 }
 
 
-fetchStudentProjects()
+fetchStudentProjects() 
+
+
+const randomSearchTerm = 'shorts';
+const videoGrid = document.querySelector('.video-grid');
+
+fetch('http://localhost:3000/videos/youtube?q=' + encodeURIComponent(randomSearchTerm))
+  .then(response => response.json())
+  .then(data => {
+    const searchResults = data || [];
+
+    searchResults.forEach(channel => {
+      channel.videos.forEach(video => {
+        const videoContainer = document.createElement('div');
+        videoContainer.className = 'video-container';
+        videoGrid.appendChild(videoContainer);
+
+        createYouTubePlayer(videoContainer, video.videoId);
+      });
+    });
+  })
+  .catch(error => console.error('Error fetching data from the backend:', error));
+
+
+
 
 function createYouTubePlayer(container, videoId) {
 
@@ -90,8 +114,3 @@ function createYouTubePlayer(container, videoId) {
   container.appendChild(cardContainer);
 
 }
-
-
-
-
-
