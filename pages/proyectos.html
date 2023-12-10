@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/proyectos.css" />
+    <link rel="short cut icon" href="../img//favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <title>Ed Visto - Proyectos Profesor</title>
+  </head>
+  <body>
+    <header>
+      <header>
+        <nav class="welcome-banner">
+          <nav>
+            <picture>
+              <a href="../index.html"
+                ><img
+                  src="../img/logoEdVisto.png"
+                  alt="Logo Ed Visto"
+                  class="logoedv"
+              /></a>
+            </picture>
+          </nav>
+          <div class="divSaludo">
+            <p class="saludoPerfil">
+              <strong>¡Hola, <span id="nombreUsuario"></span>!</strong>
+            </p>
+          </div>
+        </nav>
+      </header>
+    </header>
+
+    <div class="subtittle">
+      <div id="nuevoProyecto">Nuevo Proyecto</div>
+      <div id="Volver"><a href="./misClases.html"> ← Volver</a></div>
+    </div>
+    <div class="backimage">
+    <div class="container">
+      <form action="#" class="form">
+        <select
+          name="curso"
+          id="division"
+          class="selectColor"
+          onchange="cambiarColor()"
+        >
+          <option value="selecciona">Seleccionar Curso</option>
+          <option value="SegundoA">SegundoA</option>
+          <option value="SegundoB">SegundoB</option>
+          <option value="TercerA">TercerA</option>
+          <option value="TercerB">TercerB</option>
+          <option value="CuartoA">CuartoA</option>
+          <option value="CuartoB">CuartoB</option>
+          <option value="QuintoA">QuintoA</option>
+          <option value="QuintoB">QuintoB</option>
+        </select> 
+        <div class="a_completar">
+          <div class="titulo_proyecto_div title">
+            <label class="rotulo" for="titulo-proyecto"
+              >NOMBRE DEL PROYECTO:</label
+            >
+            <input
+              class="campo"
+              id="titulo-proyecto"
+              name="titulo-proyecto"
+              type="text"
+              required
+            />
+          </div>
+          <div class="titulo_fenomeno_div title">
+            <label id="titulo_proyecto" class="rotulo" for="titulo_fenomeno"
+              >TÍTULO DE FENÓMENO:</label
+            >
+            <input
+              class="campo"
+              id="titulo_fenomeno"
+              name="titulo_fenomeno"
+              type="text"
+              required
+            />
+          </div>
+          <div class="descripcion_div title">
+            <label class="rotulo" for="descripcion">DESCRIPCIÓN:</label>
+            <textarea
+              class="campo campo_descripcion"
+              id="descripcion_proyecto"
+              name="descripcion"
+              type="text"
+              maxlength="500"
+            ></textarea>
+          </div>
+        </div>
+        <div class="checkbox-container">
+          <button id="asignar" class="assign_button">ASIGNAR</button>
+        </div>
+        <div class="dates_selector_container">
+          <div class="calendar_container">
+            <label for="fecha_inicio">Fecha de inicio:</label>
+            <input type="date" id="fecha_inicio" name="fecha_inicio" />
+          </div>
+          <div class="calendar_container">
+            <label for="fecha_fin">Fecha de finalización:</label>
+            <input type="date" id="fecha_fin" name="fecha_fin" />
+          </div>
+        </div>
+
+        <div id="pdfForm">
+          <h4 class="añadirRecursos">Añadir recursos para los estudiantes</h4>
+          <div class="input-url">
+            <input
+              class="urllink"
+              type="text"
+              id="urllink"
+              name="urllink"
+              placeholder="Copia url"
+            />
+            <span class="material-symbols-outlined"> attach_file </span>
+            <span class="material-symbols-outlined"> link </span>
+            <span class="material-symbols-outlined"> add_to_drive </span>
+            <span class="material-symbols-outlined"> image </span>
+          </div>
+        </div>
+        <div class="button-container">
+          <button id="crear-button">Guardar</button>
+          <button id="cancelar-button" onclick="cancelarAccion()">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    <section class="modal hide">
+      <div class="modalContainer">
+        <a class="close-modal">
+          <span class="material-symbols-outlined cross"> cancel </span>
+        </a>
+        <h2 class="modalTitle">Asignar a:</h2>
+        <div class="student_list"></div>
+      </div>
+    </section>
+    <section class="alert hide success">
+      <a class="close-alert">
+        <span class="material-symbols-outlined"> cancel </span>
+      </a>
+      <img
+        src="../img/success.png"
+        alt="checked"
+        class="alert-img"
+        width="100px"
+      />
+      <h1>Se ha guardado con exito.</h1>
+    </section>
+    <section class="alert error hide">
+      <a class="close-alert">
+        <span class="material-symbols-outlined"> cancel </span>
+      </a>
+      <h1>Error inesperado. Intente nuevamente.</h1>
+      <img
+        src="../img/error.png"
+        alt="checked"
+        class="alert-img"
+        width="100px"
+      />
+      
+    </section>
+
+    <script src="../Js/proyectos.js"></script>
+  </body>
+</html>
