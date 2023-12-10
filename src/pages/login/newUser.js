@@ -41,7 +41,7 @@ async function register() {
 
   console.log(jsonData);
 
-  fetch("http://localhost:3000/api/register", {
+  fetch(`${serverUrl}/api/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -54,7 +54,7 @@ async function register() {
         alert(data.error);
       } else {
         alert(data.message);
-        window.location.href = "http://localhost:127.0.0.1:5500/index.html";
+        window.location.href = `${serverUrl}/index.html`;
       }
     });
 }

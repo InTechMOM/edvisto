@@ -1,15 +1,13 @@
 export class StudentCard extends HTMLElement {
-	constructor() {
-	  super();
-	  this.innerHTML = `
+  constructor() {
+    super();
+    this.innerHTML = `
 	  <div class="top-container">
 			<h2 class="name open">
 				${this.getAttribute("name")}
 			</h2>
 			<p class="video-url">
-				<em>${
-				  this.getAttribute("video-url") || "https://www.youtube.com/"
-				}</em>
+				<em>${this.getAttribute("video-url") || "https://www.youtube.com/"}</em>
 			</p>
 			<button type="button" class="dropdown active">∨</button>
 		</div>
@@ -18,10 +16,10 @@ export class StudentCard extends HTMLElement {
 				<div class="left-container">
 					<div class="video-container" id="player">
 						<iframe id="ytplayer" type="text/html" frameborder="0" style="width: 100%; height: 100%" src='${
-						  "https://www.youtube.com/embed/" +
-						  getYouTubeVideoId(this.getAttribute("video-url")) +
-						  "?enablejsapi=1&autoplay=0"
-						}'>
+              "https://www.youtube.com/embed/" +
+              getYouTubeVideoId(this.getAttribute("video-url")) +
+              "?enablejsapi=1&autoplay=0"
+            }'>
 						</iframe>
 					</div>
 					<div class="notes">
@@ -109,111 +107,110 @@ export class StudentCard extends HTMLElement {
 			</div>
 		</div>
 	`;
-	  const communication = this.querySelector("#comunicacion");
-	  const collaboration = this.querySelector("#colaboracion");
-	  const creativity = this.querySelector("#creatividad");
-	  const criticalThinking = this.querySelector("#pensamiento-cientifico");
-  
-	  const handleSave = () => {
-		const comments = this.querySelector(".notes textarea").value;
-		const name = this.getAttribute("name");
-		const videoUrl = this.getAttribute("video-url");
-		const videoId = this.getAttribute("video-id");
-		const email = this.getAttribute("email");
-		const isStudent = "Soy Estudiante";
-  
-		Swal.fire({
-		  title: "¿Estás seguro de enviar esta información?",
-		  icon: "question",
-		  showCancelButton: true,
-		  confirmButtonColor: "#3085d6",
-		  cancelButtonColor: "#d33",
-		  confirmButtonText: "Aceptar",
-		}).then((result) => {
-		  if (result.isConfirmed) {
-			fetch(`http://localhost:3000/api/delivery/${videoId}/feedback`, {
-			  method: "PATCH",
-			  headers: {
-				"Content-Type": "application/json",
-			  },
-			  body: JSON.stringify({
-				feedback: {
-				  skills: {
-					communication: communication.value,
-					collaboration: collaboration.value,
-					creativity: creativity.value,
-					criticalThinking: criticalThinking.value,
-				  },
-				  comment: comments,
-				},
-			  }),
-			})
-			  .then((response) => {
-				console.log(response);
-				if (response.status === 201) {
-				  Swal.fire("¡Se ha enviado la información!", "", "success");
-				}
-			  })
-			  .then(() => {
-				setTimeout(() => {
-				  window.location.reload();
-				}, 1500);
-			  });
-		  }
-		});
-	  };
-  
-	  function getYouTubeVideoId(url) {
-		var parser = document.createElement("a");
-		parser.href = url;
-  
-		var params = new URLSearchParams(parser.search);
-		if (params.has("∧")) {
-		  return params.get("∧");
-		} else if (parser.pathname && parser.pathname.length > 1) {
-		  return parser.pathname.substr(1);
-		} else {
-		  return null;
-		}
-	  }
-  
-	  const comunicacionPromedio = this.querySelector("#comunicacion-promedio");
-	  const colaboracionPromedio = this.querySelector("#colaboracion-promedio");
-	  const creatividadPromedio = this.querySelector("#creatividad-promedio");
-	  const pensamientoCientificoPromedio = this.querySelector(
-		"#pensamiento-cientifico-promedio"
-	  );
-	  const dropdownBtn = this.querySelector(".dropdown");
-	  const bottomContainer = this.querySelector(".bottom-container");
-	  const saveBtn = this.querySelector(".save");
-  
-	  dropdownBtn.addEventListener("click", () => {
-		dropdownBtn.classList.toggle("active");
-		if (dropdownBtn.classList.contains("active")) {
-		  dropdownBtn.textContent = "∨";
-		  bottomContainer.style.display = "none";
-		} else {
-		  dropdownBtn.textContent = "∧";
-		  bottomContainer.style.display = "block";
-		}
-	  });
-  
-	  communication.addEventListener("change", () => {
-		comunicacionPromedio.innerHTML = communication.value;
-	  });
-	  collaboration.addEventListener("change", () => {
-		colaboracionPromedio.innerHTML = collaboration.value;
-	  });
-	  creativity.addEventListener("change", () => {
-		creatividadPromedio.innerHTML = creativity.value;
-	  });
-	  criticalThinking.addEventListener("change", () => {
-		pensamientoCientificoPromedio.innerHTML = criticalThinking.value;
-	  });
-  
-	  saveBtn.addEventListener("click", handleSave);
-	}
+    const communication = this.querySelector("#comunicacion");
+    const collaboration = this.querySelector("#colaboracion");
+    const creativity = this.querySelector("#creatividad");
+    const criticalThinking = this.querySelector("#pensamiento-cientifico");
+
+    const handleSave = () => {
+      const comments = this.querySelector(".notes textarea").value;
+      const name = this.getAttribute("name");
+      const videoUrl = this.getAttribute("video-url");
+      const videoId = this.getAttribute("video-id");
+      const email = this.getAttribute("email");
+      const isStudent = "Soy Estudiante";
+
+      Swal.fire({
+        title: "¿Estás seguro de enviar esta información?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Aceptar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch(`${serverUrl}/api/delivery/${videoId}/feedback`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              feedback: {
+                skills: {
+                  communication: communication.value,
+                  collaboration: collaboration.value,
+                  creativity: creativity.value,
+                  criticalThinking: criticalThinking.value,
+                },
+                comment: comments,
+              },
+            }),
+          })
+            .then((response) => {
+              console.log(response);
+              if (response.status === 201) {
+                Swal.fire("¡Se ha enviado la información!", "", "success");
+              }
+            })
+            .then(() => {
+              setTimeout(() => {
+                window.location.reload();
+              }, 1500);
+            });
+        }
+      });
+    };
+
+    function getYouTubeVideoId(url) {
+      var parser = document.createElement("a");
+      parser.href = url;
+
+      var params = new URLSearchParams(parser.search);
+      if (params.has("∧")) {
+        return params.get("∧");
+      } else if (parser.pathname && parser.pathname.length > 1) {
+        return parser.pathname.substr(1);
+      } else {
+        return null;
+      }
+    }
+
+    const comunicacionPromedio = this.querySelector("#comunicacion-promedio");
+    const colaboracionPromedio = this.querySelector("#colaboracion-promedio");
+    const creatividadPromedio = this.querySelector("#creatividad-promedio");
+    const pensamientoCientificoPromedio = this.querySelector(
+      "#pensamiento-cientifico-promedio"
+    );
+    const dropdownBtn = this.querySelector(".dropdown");
+    const bottomContainer = this.querySelector(".bottom-container");
+    const saveBtn = this.querySelector(".save");
+
+    dropdownBtn.addEventListener("click", () => {
+      dropdownBtn.classList.toggle("active");
+      if (dropdownBtn.classList.contains("active")) {
+        dropdownBtn.textContent = "∨";
+        bottomContainer.style.display = "none";
+      } else {
+        dropdownBtn.textContent = "∧";
+        bottomContainer.style.display = "block";
+      }
+    });
+
+    communication.addEventListener("change", () => {
+      comunicacionPromedio.innerHTML = communication.value;
+    });
+    collaboration.addEventListener("change", () => {
+      colaboracionPromedio.innerHTML = collaboration.value;
+    });
+    creativity.addEventListener("change", () => {
+      creatividadPromedio.innerHTML = creativity.value;
+    });
+    criticalThinking.addEventListener("change", () => {
+      pensamientoCientificoPromedio.innerHTML = criticalThinking.value;
+    });
+
+    saveBtn.addEventListener("click", handleSave);
   }
-  
-  window.customElements.define("student-card", StudentCard);
-  
+}
+
+window.customElements.define("student-card", StudentCard);

@@ -18,9 +18,7 @@ function toggleModal(e) {
 }
 
 async function getStudents() {
-  const response = await fetch(
-    "http://localhost:3000/api/users?rol=Soy%20Estudiante"
-  );
+  const response = await fetch(`${serverUrl}/api/users?rol=Soy%20Estudiante`);
   const data = await response.json();
   return data;
 }
@@ -145,7 +143,7 @@ document
       return;
     }
 
-    const response = await fetch("http://localhost:3000/api/project", {
+    const response = await fetch(`${serverUrl}/api/project`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -166,5 +164,3 @@ document
         });
     }
   });
-
-  

@@ -6,7 +6,7 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 let queryEmail = params.email;
 
 async function getUsers() {
-  const allUsers = await fetch("http://localhost:3000/api/users")
+  const allUsers = await fetch(`${serverUrl}/api/users`)
     .then((response) => response.json())
     .then((data) => {
       return data;
@@ -72,7 +72,7 @@ document
   .querySelector("#division")
   .addEventListener("change", async function (e) {
     const selected = e.target.value;
-    const allProjects = await fetch("http://localhost:3000/api/deliveries")
+    const allProjects = await fetch(`${serverUrl}/api/deliveries`)
       .then((response) => response.json())
       .then((data) => {
         return data;
