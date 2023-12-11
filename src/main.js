@@ -14,7 +14,7 @@ if (isUserLogged() && location.pathname === "/index.html") {
   const { rol } = getLoginUserData();
 
   const redirectionUrl = `src/pages/${
-    rol === "teacher" ? "misClases" : "estudiante"
+    rol === "teacher" ? "misClases" : "feed"
   }.html`;
 
   location.href = redirectionUrl;

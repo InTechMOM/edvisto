@@ -45,7 +45,7 @@ export const regularLogin = async (e) => {
     setLoginUserData({ userEmail, name, message, course });
 
     //  ir a inicio para alumnos
-    location.href = "/src/pages/estudiante.html";
+    location.href = "/src/pages/feed.html";
   } else {
     alert("Usuario y/o contraseña equivocados");
   }

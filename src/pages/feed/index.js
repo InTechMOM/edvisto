@@ -1,9 +1,9 @@
-import { serverPath } from "../../main.js";
+import { serverUrl } from "../../main.js";
 
 async function fetchStudentProjects() {
 	const studentEmail = localStorage.getItem('studentEmail');
 	const studentGrade = localStorage.getItem('studentGrade');
-	const urlProjects = `${serverPath}/api/projects?course=${studentGrade}&emailStudents=${studentEmail}`;
+	const urlProjects = `${serverUrl}/api/projects?course=${studentGrade}&emailStudents=${studentEmail}`;
 
 	try {
     const response = await fetch(urlProjects, {
@@ -33,7 +33,7 @@ async function fetchStudentProjects() {
                         <p>Fecha de finalización:${project.finishDate} </p>
                     </div>
                 </div>
-                <img src="../../assets/images/collapsible-arrow.svg" alt="flecha hacia abajo" id="arrow-down">
+                <img src="/src/assets/images/collapsible-arrow.svg" alt="flecha hacia abajo" id="arrow-down">
             </button>
             <div class="content">
                 <p class="drop-text">¡Sigue adelante con tu proyecto!</p>
@@ -41,7 +41,7 @@ async function fetchStudentProjects() {
                 <p class="text">Haz click en el botón para seguir trabajando </p>
                 <a href="/busqueda.html">
                     <button type="button" aria-label="boton ir" class="go-btn">¡Vamos!<img
-                            src="../../assets/images/arrow-right.svg" alt="flecha hacia la derecha"></button>
+                            src="/src/assets/images/arrow-right.svg" alt="flecha hacia la derecha"></button>
                 </a>
             </div>
         </div>
