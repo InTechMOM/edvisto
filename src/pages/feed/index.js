@@ -5,13 +5,13 @@ export async function fetchStudentProjects() {
 	const {email, course} = getLoginUserData();
 	const urlProjects = `${serverUrl}/api/projects?course=${course}&emailStudents=${email}`;
 
-	try {
+  try {
     const response = await fetch(urlProjects, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       }
-		});
+    });
 
     if (!response.ok) {
       throw new Error(`Error en la solicitud: ${response.status}`);
@@ -78,6 +78,30 @@ try{
 
 fetchStudentProjects()
 
+
+const randomSearchTerm = 'shorts';
+const videoGrid = document.querySelector('.video-grid');
+
+fetch('http://localhost:3000/videos/youtube?q=' + encodeURIComponent(randomSearchTerm))
+  .then(response => response.json())
+  .then(data => {
+    const searchResults = data || [];
+
+    searchResults.forEach(channel => {
+      channel.videos.forEach(video => {
+        const videoContainer = document.createElement('div');
+        videoContainer.className = 'video-container';
+        videoGrid.appendChild(videoContainer);
+
+        createYouTubePlayer(videoContainer, video.videoId);
+      });
+    });
+  })
+  .catch(error => console.error('Error fetching data from the backend:', error));
+
+
+
+
 function createYouTubePlayer(container, videoId) {
 
   const cardContainer = document.createElement('div');
@@ -95,8 +119,3 @@ function createYouTubePlayer(container, videoId) {
   container.appendChild(cardContainer);
 
 }
-
-
-
-
-
