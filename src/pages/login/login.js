@@ -5,6 +5,7 @@ import {
   firebaseProvider,
 } from "../../config/firebase.js";
 import { serverUrl } from "../../main.js";
+import { fetchStudentProjects } from "../feed/index.js";
 
 export const loginWithGoogle = () => {
   signInWithPopup(firebaseAuth, firebaseProvider)
@@ -43,9 +44,14 @@ export const regularLogin = async (e) => {
     location.href = "/src/pages/misClases.html";
   } else if (message === "Welcome student") {
     setLoginUserData({ userEmail, name, message, course });
-
+		const studentProject = await fetchStudentProjects()
+		console.log(studentProject)
+		if(!studentProject) {
     //  ir a inicio para alumnos
-    location.href = "/src/pages/estudiante.html";
+    location.href = "/src/pages/feed.html";
+	}
+
+	location.href = "/src/pages/estudiante.html";
   } else {
     alert("Usuario y/o contraseña equivocados");
   }
@@ -76,10 +82,10 @@ export const setLoginUserData = ({
       rol: message === "Welcome student" ? "student" : "teacher",
       email,
       name,
-      ...(course & { course }),
-    })
-  );
-};
+      course
+		})
+		);
+    }
 
 export const getLoginUserData = () =>
   JSON.parse(localStorage.getItem("edVistoUser"));
