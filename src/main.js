@@ -1,3 +1,5 @@
+export const serverUrl = "http://localhost:3000";
+
 import { fetchStudentProjects } from "./pages/feed/index.js";
 import {
   getLoginUserData,
@@ -5,7 +7,6 @@ import {
   regularLogin,
 } from "./pages/login/login.js";
 
-export const serverUrl = "http://localhost:3000";
 
 export const isUserLogged = () => {
   return !!localStorage.getItem("edVistoUser");

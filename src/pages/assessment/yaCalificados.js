@@ -1,4 +1,4 @@
-import { serverUrl } from "../../main";
+import { serverUrl } from "../../main.js";
 
 async function getStudents() {
   return fetch(`${serverUrl}/api/users?rol=Soy%20Estudiante`)
@@ -14,7 +14,7 @@ async function getStudents() {
 }
 
 const listContainer = document.querySelector(".container_listado");
-const allProjects = fetch(`${serverUrl}/api/deliveries`).then((response) =>
+const allProjects = (filter) => fetch(`${serverUrl}/api/deliveries${filter}`).then((response) =>
   response.json()
 );
 
@@ -34,11 +34,8 @@ document
       return student.course === selectedCourse.value;
     });
 
-    const projects = await allProjects;
-    const qualifiedProjects = projects.Deliveries.filter((project) => {
-      return project.qualified;
-    });
-
+    const qualifiedProjects = await allProjects('?qualified=true');
+console.log(qualifiedProjects)
     qualifiedProjects.forEach((element) => {
       const studentSlot = document.createElement("div");
       const thisStudent = getStudentByEmail(students, element.emailStudent);

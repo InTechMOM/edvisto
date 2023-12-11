@@ -7,7 +7,7 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 let queryEmail = params.email;
 
 async function getStudents() {
-  const students =  await fetch(`${serverUrl}/api/users?rol=Soy Estudiante`)
+  const students =  await fetch(`${serverUrl}/api/users?rol=Soy%20Estudiante`)
 	.then((response) => response.json())
 	.then((data) => {
 		return data.Users;
@@ -65,10 +65,10 @@ function getStudentById(allUsers, id) {
 document.querySelector("#division").addEventListener("change", async function (e) {
     const selected = e.target.value;
 
-    const projects = await fetch(`${serverUrl}/api/deliveries?course=${filters}`)
+    const projects = await fetch(`${serverUrl}/api/projects?course=${selected}`)
       .then((response) => response.json())
       .then((data) => {
-        return data;
+        return data.Projects;
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -78,13 +78,14 @@ document.querySelector("#division").addEventListener("change", async function (e
 });
 
 const createStudentCards = async (projectsToQualify) => {
+	if(!projectsToQualify?.length) return;
+
   const students = await getStudents();
+	const studentName = (project) => students.filter(({email}) => email === project.emailStudents[0])
   const studentCards = projectsToQualify?.map(
       (project) =>
-        `<student-card name="${
-          students.filter((el) => el.email === project.emailStudent)[0].name
-        }" email="${project.emailStudent}" video-url="${
-          project.videoURL
+        `<student-card name="${studentName(project)[0]?.name || ""
+        }" email="${project.emailStudents}" video-url="${project.resourcesURL[0]
         }" video-id="${project._id}"></student-card>`
     )
     .join("");

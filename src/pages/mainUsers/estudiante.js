@@ -17,7 +17,7 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 let queryEmail = params.email;
 
 // buscar todos los profesores
-fetch(`${serverUrl}/api/users?rol=Soy Docente`).then((response) => {
+fetch(`${serverUrl}/api/users?rol=Soy%20Docente`).then((response) => {
   if (response.status === 200) {
     response.json().then((data) => {
       data.Users.forEach((professor) => {
