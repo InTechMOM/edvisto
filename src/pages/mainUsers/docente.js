@@ -10,7 +10,6 @@ async function getUsers() {
   const allUsers = await fetch(`${serverUrl}/api/users?rol=Soy Estudiante`)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data.User, data);
       return data.User;
     })
     .catch((error) => {
@@ -92,7 +91,6 @@ document
 
 const createStudentCards = async (projectsToQualify) => {
   const students = await getStudents();
-  console.log(projectsToQualify, "projectsToQualify");
   const studentCards = projectsToQualify
     .map(
       (project) =>

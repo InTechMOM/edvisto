@@ -43,7 +43,7 @@ export const regularLogin = async (e) => {
     location.href = "/src/pages/misClases.html";
   } else if (message === "Welcome student") {
     setLoginUserData({ userEmail, name, message, course });
-    console.log("la");
+
     //  ir a inicio para alumnos
     location.href = "/src/pages/estudiante.html";
   } else {

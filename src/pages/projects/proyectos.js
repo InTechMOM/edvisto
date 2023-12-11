@@ -37,7 +37,6 @@ async function makeList() {
   modal.innerHTML = "";
 
   students.Users.forEach((element) => {
-    console.log(element.name);
     const studentSlot = document.createElement("div");
     studentSlot.classList.add("student_slot");
 

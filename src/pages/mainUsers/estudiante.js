@@ -45,7 +45,6 @@ function searchQualifications(studentId) {
   fetch(`${serverUrl}/api/videos/${studentId}`).then((response) => {
     if (response.status === 200) {
       response.json().then((data) => {
-        console.log(data);
         // no se si mi usuario tiene un video subido, por ende si vuelve
         // un array vacio, asumo que no.
         if (data.data.length === 0) {
