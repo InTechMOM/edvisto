@@ -1,3 +1,5 @@
+import { serverUrl } from "../../main";
+
 async function getStudents() {
   return fetch(`${serverUrl}/api/users?rol=Soy%20Estudiante`)
     .then((response) => {

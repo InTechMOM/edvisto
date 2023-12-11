@@ -4,6 +4,7 @@ import {
   firebaseApp,
   firebaseProvider,
 } from "../../config/firebase.js";
+import { serverUrl } from "../../main.js";
 
 export const loginWithGoogle = () => {
   signInWithPopup(firebaseAuth, firebaseProvider)
@@ -37,12 +38,12 @@ export const regularLogin = async (e) => {
   const { message, email: userEmail, name, course } = await loginUser(data);
 
   if (message === "Welcome teacher") {
-    setUserData({ userEmail, name, message });
+    setLoginUserData({ userEmail, name, message });
 
     location.href = "/src/pages/misClases.html";
   } else if (message === "Welcome student") {
-    setUserData({ userEmail, name, message, course });
-
+    setLoginUserData({ userEmail, name, message, course });
+    console.log("la");
     //  ir a inicio para alumnos
     location.href = "/src/pages/estudiante.html";
   } else {
@@ -63,13 +64,12 @@ export const loginUser = async (data) => {
   return response.json(); // parses JSON response into native JavaScript objects
 };
 
-export const setUserData = ({ userEmail: email, name, message, course }) => {
-  console.log({
-    message,
-    email,
-    name,
-    ...(course & { course }),
-  });
+export const setLoginUserData = ({
+  userEmail: email,
+  name,
+  message,
+  course,
+}) => {
   localStorage.setItem(
     "edVistoUser",
     JSON.stringify({
@@ -81,10 +81,5 @@ export const setUserData = ({ userEmail: email, name, message, course }) => {
   );
 };
 
-export const isUserLogged = () => {
-  console.log(
-    localStorage.getItem("edVistoUser"),
-    !!localStorage.getItem("edVistoUser")
-  );
-  return !!localStorage.getItem("edVistoUser");
-};
+export const getLoginUserData = () =>
+  JSON.parse(localStorage.getItem("edVistoUser"));

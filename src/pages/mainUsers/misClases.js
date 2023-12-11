@@ -1,19 +1,25 @@
-localStorage.setItem('studentEmail', 'an@example.com');
-localStorage.setItem('studentGrade', 'SegundoA');
+import { getLoginUserData } from "../login/login.js";
 
-let nombreUsuario = "Juan"; // Aquí asignar el nombre del usuario
+export const setUserNameInNavBar = () => {
+  const { name } = getLoginUserData();
 
-document.getElementById("nombreUsuario").textContent = nombreUsuario;
+  document.getElementById("nombreUsuario").innerText = name;
+};
 
-function irPaginaProyectos() {
-    window.location.href = '../pages/proyectos.html';
-}
+const irPaginaProyectos = () => {
+  window.location.href = "/src/pages/proyectos.html";
+};
 
-document.getElementById('irProyecto').addEventListener('click', irPaginaProyectos);
+setUserNameInNavBar();
+
+document
+  .getElementById("irProyecto")
+  .addEventListener("click", irPaginaProyectos);
 
 function irPaginaCalificaciones() {
-    window.location.href = '../pages/calificaciones.html';
+  window.location.href = "/src/pages/calificaciones.html";
 }
 
-document.getElementById('irCalificacion').addEventListener('click', irPaginaCalificaciones);
-
+document
+  .getElementById("irCalificacion")
+  .addEventListener("click", irPaginaCalificaciones);

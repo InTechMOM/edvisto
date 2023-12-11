@@ -1,3 +1,4 @@
+import { serverUrl } from "../../main.js";
 import "./StudentCard.js";
 
 const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -6,10 +7,11 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 let queryEmail = params.email;
 
 async function getUsers() {
-  const allUsers = await fetch(`${serverUrl}/api/users`)
+  const allUsers = await fetch(`${serverUrl}/api/users?rol=Soy Estudiante`)
     .then((response) => response.json())
     .then((data) => {
-      return data;
+      console.log(data.User, data);
+      return data.User;
     })
     .catch((error) => {
       console.error("Error fetching data:", error);

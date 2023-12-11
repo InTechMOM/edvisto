@@ -1,3 +1,5 @@
+import { serverUrl } from "../../main";
+
 function convertDateFormat(inputDate) {
   const dateParts = inputDate.split("-");
   const outputDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];

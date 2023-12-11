@@ -1,4 +1,9 @@
-function cambiarColor() {
+import { serverUrl } from "../../main.js";
+import { setUserNameInNavBar } from "../mainUsers/misClases.js";
+
+setUserNameInNavBar();
+
+export function cambiarColor() {
   const select = document.getElementById("division");
   const options = select.getElementsByTagName("option");
 

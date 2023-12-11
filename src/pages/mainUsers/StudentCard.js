@@ -1,3 +1,5 @@
+import { serverUrl } from "../../main.js";
+
 export class StudentCard extends HTMLElement {
   constructor() {
     super();
