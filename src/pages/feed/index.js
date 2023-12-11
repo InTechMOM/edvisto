@@ -2,8 +2,11 @@ import { serverUrl } from "../../main.js";
 import { getLoginUserData } from "../login/login.js";
 
 export async function fetchStudentProjects() {
-	const {email, course} = getLoginUserData();
-	const urlProjects = `${serverUrl}/api/projects?course=${course}&emailStudents=${email}`;
+	const userData = getLoginUserData();
+
+	if (!userData) return;
+
+	const urlProjects = `${serverUrl}/api/projects?course=${userData.course}&emailStudents=${userData.email}`;
 
   try {
     const response = await fetch(urlProjects, {
@@ -79,25 +82,25 @@ try{
 fetchStudentProjects()
 
 
-const randomSearchTerm = 'shorts';
-const videoGrid = document.querySelector('.video-grid');
+// const randomSearchTerm = 'shorts';
+// const videoGrid = document.querySelector('.video-grid');
 
-fetch('http://localhost:3000/videos/youtube?q=' + encodeURIComponent(randomSearchTerm))
-  .then(response => response.json())
-  .then(data => {
-    const searchResults = data || [];
+// fetch('http://localhost:3000/videos/youtube?q=' + encodeURIComponent(randomSearchTerm))
+//   .then(response => response.json())
+//   .then(data => {
+//     const searchResults = data || [];
 
-    searchResults.forEach(channel => {
-      channel.videos.forEach(video => {
-        const videoContainer = document.createElement('div');
-        videoContainer.className = 'video-container';
-        videoGrid.appendChild(videoContainer);
+//     searchResults.forEach(channel => {
+//       channel.videos.forEach(video => {
+//         const videoContainer = document.createElement('div');
+//         videoContainer.className = 'video-container';
+//         videoGrid.appendChild(videoContainer);
 
-        createYouTubePlayer(videoContainer, video.videoId);
-      });
-    });
-  })
-  .catch(error => console.error('Error fetching data from the backend:', error));
+//         createYouTubePlayer(videoContainer, video.videoId);
+//       });
+//     });
+//   })
+//   .catch(error => console.error('Error fetching data from the backend:', error));
 
 
 
