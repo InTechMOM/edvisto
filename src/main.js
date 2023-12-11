@@ -1,3 +1,4 @@
+import { fetchStudentProjects } from "./pages/feed/index.js";
 import {
   getLoginUserData,
   loginWithGoogle,
@@ -10,15 +11,18 @@ export const isUserLogged = () => {
   return !!localStorage.getItem("edVistoUser");
 };
 
-if (isUserLogged() && location.pathname === "/index.html") {
+if (isUserLogged() && (location.pathname === "/index.html" || location.pathname === "/")) {
   const { rol } = getLoginUserData();
+	const studentProject = await fetchStudentProjects()
+		console.log(studentProject)
+		const student = studentProject ? 'feed' : 'estudiante'
 
   const redirectionUrl = `src/pages/${
-    rol === "teacher" ? "misClases" : "feed"
+    rol === "teacher" ? "misClases" : student
   }.html`;
 
   location.href = redirectionUrl;
-} else if (location.pathname === "/index.html") {
+} else if (location.pathname === "/index.html" || location.pathname === "/") {
   const googleLoginButton = document.getElementById("google_login_button");
   googleLoginButton.addEventListener("click", (e) => {
     e.preventDefault();

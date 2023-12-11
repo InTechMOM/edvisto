@@ -1,9 +1,9 @@
 import { serverUrl } from "../../main.js";
+import { getLoginUserData } from "../login/login.js";
 
-async function fetchStudentProjects() {
-	const studentEmail = localStorage.getItem('studentEmail');
-	const studentGrade = localStorage.getItem('studentGrade');
-	const urlProjects = `${serverUrl}/api/projects?course=${studentGrade}&emailStudents=${studentEmail}`;
+export async function fetchStudentProjects() {
+	const {email, course} = getLoginUserData();
+	const urlProjects = `${serverUrl}/api/projects?course=${course}&emailStudents=${email}`;
 
 	try {
     const response = await fetch(urlProjects, {
@@ -18,7 +18,13 @@ async function fetchStudentProjects() {
     }
 
     const data = await response.json();
+	} catch (error) {
+    console.error('Error al cargar los proyectos', error);
+  }
+	}
 
+	const renderStudentProjects = (data) => {
+try{
     const projectsContainer = document.getElementById('studentProjects');
 
     data.Projects.forEach((project) => {
@@ -64,8 +70,7 @@ async function fetchStudentProjects() {
         }
       });
     });
-
-  } catch (error) {
+	} catch (error) {
     console.error('Error al cargar los proyectos', error);
   }
 }

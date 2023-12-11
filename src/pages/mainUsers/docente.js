@@ -6,23 +6,16 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 });
 let queryEmail = params.email;
 
-async function getUsers() {
-  const allUsers = await fetch(`${serverUrl}/api/users?rol=Soy Estudiante`)
-    .then((response) => response.json())
-    .then((data) => {
-      return data.User;
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-    });
-  return allUsers;
-}
-
 async function getStudents() {
-  const allUsers = await getUsers();
-  const students = allUsers.Users.filter((student) => {
-    return student.rol === "Soy Estudiante";
-  });
+  const students =  await fetch(`${serverUrl}/api/users?rol=Soy Estudiante`)
+	.then((response) => response.json())
+	.then((data) => {
+		return data.Users;
+	})
+	.catch((error) => {
+		console.error("Error fetching data:", error);
+	});
+
   return students;
 }
 
@@ -67,13 +60,12 @@ function getStudentById(allUsers, id) {
 //   });
 
 // }
-const courseSelection = document.querySelector("#division");
 
-document
-  .querySelector("#division")
-  .addEventListener("change", async function (e) {
+
+document.querySelector("#division").addEventListener("change", async function (e) {
     const selected = e.target.value;
-    const allProjects = await fetch(`${serverUrl}/api/deliveries`)
+
+    const projects = await fetch(`${serverUrl}/api/deliveries?course=${filters}`)
       .then((response) => response.json())
       .then((data) => {
         return data;
@@ -82,17 +74,12 @@ document
         console.error("Error fetching data:", error);
       });
 
-    const projectsToQualify = allProjects.Deliveries.filter((project) => {
-      return project.course === selected && !project.qualified;
-    });
-
-    createStudentCards(projectsToQualify);
-  });
+    createStudentCards(projects);
+});
 
 const createStudentCards = async (projectsToQualify) => {
   const students = await getStudents();
-  const studentCards = projectsToQualify
-    .map(
+  const studentCards = projectsToQualify?.map(
       (project) =>
         `<student-card name="${
           students.filter((el) => el.email === project.emailStudent)[0].name

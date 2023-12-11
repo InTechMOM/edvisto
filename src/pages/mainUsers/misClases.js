@@ -7,7 +7,7 @@ export const setUserNameInNavBar = () => {
 };
 
 const irPaginaProyectos = () => {
-  window.location.href = "../proyectos.html";
+  window.location.href = "/src/pages/proyectos.html";
 };
 
 setUserNameInNavBar();
@@ -17,7 +17,7 @@ document
   .addEventListener("click", irPaginaProyectos);
 
 function irPaginaCalificaciones() {
-  window.location.href = "../calificaciones.html";
+  window.location.href = "/src/pages/calificaciones.html";
 }
 
 document
